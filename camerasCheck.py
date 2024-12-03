@@ -1,10 +1,8 @@
 from PyCameraList.camera_device import test_list_cameras, list_video_devices, list_audio_devices
+from PySide6.QtMultimedia import (QCamera, QImageCapture,
+                                  QCameraDevice, QMediaCaptureSession,
+                                  QMediaDevices)
+import pprint
 
-
-def camera_list(self):
-    cameras = []
-    for i in list_video_devices():
-        cameras.append(list(i))
-
-
-    return cameras
+available_cameras = QMediaDevices.videoInputs()
+print(available_cameras[0])

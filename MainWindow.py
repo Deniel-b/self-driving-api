@@ -3,7 +3,11 @@ from PySide6.QtCore import Qt
 from PySide6.QtWidgets import QApplication, QLabel, QMainWindow, QComboBox
 from PySide6.QtWidgets import QHBoxLayout, QVBoxLayout, QGridLayout, QWidget
 
+
 from PyCameraList.camera_device import list_video_devices
+
+from Camera import Camera
+
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -21,7 +25,6 @@ class MainWindow(QMainWindow):
         for i in MainWindow.camera_list(self):
             self.first_camera_list.addItems(i)
 
-
         self.second_camera_list = QComboBox()
         for i in MainWindow.camera_list(self):
             self.second_camera_list.addItems(i)
@@ -29,16 +32,14 @@ class MainWindow(QMainWindow):
         menu_panel.addWidget(self.first_camera_list)
         menu_panel.addWidget(self.second_camera_list)
 
-
-
         main_layout.addLayout(menu_panel)
 
         grid_layout = QGridLayout()
 
         # Вывод с первой камеры
-        self.label_camera_1 = QLabel("вывод с первой камеры")
-        self.label_camera_1.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        grid_layout.addWidget(self.label_camera_1, 0, 0)
+        self.camera_1 = Camera()
+        # self.label_camera_1.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        grid_layout.addWidget(self.camera_1.viewfinder, 0, 0)
 
         # Обработанное изображение с первой камеры
         self.label_processed_1 = QLabel("обработанное изображение с первой камеры")
