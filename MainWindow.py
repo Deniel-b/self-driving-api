@@ -1,12 +1,13 @@
-from PySide6 import QtGui, QtCore, QtWidgets
 from PySide6.QtCore import Qt
-from PySide6.QtWidgets import QApplication, QLabel, QMainWindow, QComboBox
+from PySide6.QtWidgets import QLabel, QMainWindow, QComboBox
 from PySide6.QtWidgets import QHBoxLayout, QVBoxLayout, QGridLayout, QWidget
-
 
 from PyCameraList.camera_device import list_video_devices
 
 from Camera import Camera
+
+from Reimage import Reimage
+
 
 
 class MainWindow(QMainWindow):
@@ -38,13 +39,15 @@ class MainWindow(QMainWindow):
 
         # Вывод с первой камеры
         self.camera_1 = Camera()
+        self.sink_ = Reimage(self.camera_1.viewfinder.videoSink())
         # self.label_camera_1.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        grid_layout.addWidget(self.camera_1.viewfinder, 0, 0)
+        grid_layout.addWidget(self.sink_, 0, 0)
 
         # Обработанное изображение с первой камеры
-        self.label_processed_1 = QLabel("обработанное изображение с первой камеры")
-        self.label_processed_1.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        grid_layout.addWidget(self.label_processed_1, 0, 1)
+        # self.sink_ = Reimage(self.camera_1.viewfinder.videoSink())
+        # grid_layout.addWidget(self.sink_, 0, 1)
+
+
 
         # Вывод со второй камеры
         self.label_camera_2 = QLabel("вывод с второй камеры")
@@ -64,3 +67,4 @@ class MainWindow(QMainWindow):
             cameras.append(list(i))
 
         return cameras
+
